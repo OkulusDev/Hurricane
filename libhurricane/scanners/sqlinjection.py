@@ -138,5 +138,6 @@ def scan_sql_injection(session, url):
 
 
 def scanning(fua, url):
+	"""Сканируем"""
 	session = get_session(fua)
 	scan_sql_injection(session, url)
