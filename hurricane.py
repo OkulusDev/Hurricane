@@ -13,12 +13,30 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>."""
 import sys
+from datetime import datetime
+
+import libhurricane.security.fakeua as fakeua
+import libhurricane.scanners.sqlinjection as sqlinj
+import libhurricane.scanners.cve as cve
+import libhurricane.scanners.xss as xss
 
 
 class Hurricane:
 	"""Класс системы поиска данных Hurricane"""
 	def __init__(self):
 		"""Инициализация класса"""
+
+	def cve_search(self, request: str):
+		"""Парсер CVE"""
+		data = cve.search_cve(request)
+
+		date = str(datetime.now()).split('.')[0].replace(' ', '_')
+		print(f'Отчет записан в results/{date}_cve_{request}.txt')
+
+		with open(f'{date}_cve_{request}.txt', 'w') as file:
+			file.write(data)
+
+		return data
 
 
 def main():
